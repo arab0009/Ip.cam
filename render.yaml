@@ -1,0 +1,11 @@
+
+services:
+  - type: web
+    name: camera-capture
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      BOT_TOKEN: 7644893967:AAGHyiyBZwtl1fDi9bqFciuRKsnIz0yjB5Q
+      CHAT_ID: 7485197107
